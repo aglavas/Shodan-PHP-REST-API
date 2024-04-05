@@ -94,7 +94,7 @@ You can find it at: https://github.com/ScadaExposure/Shodan-PHP-REST-API/blob/ma
 
 ## Tests class - REST API
 
-### Shodan Host (```/tests/ip.php```): 
+### Shodan Host (```/tests/ip.php```):
 Return all services that have been found on the given host IP.
 ```php
 var_dump($client->ShodanHost(array(
@@ -102,7 +102,7 @@ var_dump($client->ShodanHost(array(
 )));
 ```
 
-### Shodan Host Count (```/tests/count.php```): 
+### Shodan Host Count (```/tests/count.php```):
 Returns the total number of results that matched the query and any facet information that was requested.
 ```php
 var_dump($client->ShodanHostCount(array(
@@ -110,7 +110,7 @@ var_dump($client->ShodanHostCount(array(
 )));
 ```
 
-### Shodan Host Search (```/tests/search.php```): 
+### Shodan Host Search (```/tests/search.php```):
 Search Shodan using the same query syntax as the website and use facets to get summary information for different properties. - This method may use API query credits depending on usage.
 ```php
 var_dump($client->ShodanHostSearch(array(
@@ -118,7 +118,7 @@ var_dump($client->ShodanHostSearch(array(
 )));
 ```
 
-### Shodan Host Search Tokens (```/tests/search.php```): 
+### Shodan Host Search Tokens (```/tests/search.php```):
 This method lets you determine which filters are being used by the query string and what parameters were provided to the filters.
 ```php
 var_dump($client->ShodanHostSearchTokens(array(
@@ -126,19 +126,19 @@ var_dump($client->ShodanHostSearchTokens(array(
 )));
 ```
 
-### Shodan Ports (```/tests/ports.php```): 
+### Shodan Ports (```/tests/ports.php```):
 This method returns a list of port numbers that the crawlers are looking for.
 ```php
 var_dump($client->ShodanPorts());
 ```
 
-### Shodan Protocols (```/tests/protocols.php```): 
+### Shodan Protocols (```/tests/protocols.php```):
 This method returns an object containing all the protocols that can be used when launching an Internet scan.
 ```php
 var_dump($client->ShodanProtocols());
 ```
 
-### Shodan Scan (```/tests/crawl.php```): 
+### Shodan Scan (```/tests/crawl.php```):
 Use this method to request Shodan to crawl a network. - POST METHOD REQUIRE PAID API KEY.
 ```php
 var_dump($client->ShodanScan(array(
@@ -146,7 +146,7 @@ var_dump($client->ShodanScan(array(
 )));
 ```
 
-### Shodan Scan Internet (```/tests/crawl.php```): 
+### Shodan Scan Internet (```/tests/crawl.php```):
 Use this method to request Shodan to crawl the Internet for a specific port. - POST METHOD REQUIRE PAID API KEY AND SHODAN PERMISSION.
 ```php
 var_dump($client->ShodanScanInternet(array(
@@ -155,7 +155,7 @@ var_dump($client->ShodanScanInternet(array(
 )));
 ```
 
-### Shodan Scan Id (```/tests/crawl.php```): 
+### Shodan Scan Id (```/tests/crawl.php```):
 Check the progress of a previously submitted scan request.
 ```php
 var_dump($client->ShodanScan_Id(array(
@@ -163,7 +163,7 @@ var_dump($client->ShodanScan_Id(array(
 )));
 ```
 
-### Shodan Services (```/tests/crawl.php```): 
+### Shodan Services (```/tests/crawl.php```):
 This method returns an object containing all the services that the Shodan crawlers look at. It can also be used as a quick and practical way to resolve a port number to the name of a service.
 ```php
 var_dump($client->ShodanServices());
@@ -177,7 +177,7 @@ var_dump($client->ShodanQuery(array(
 )));
 ```
 
-### Shodan Query (```/tests/saved_query.php```): 
+### Shodan Query (```/tests/saved_query.php```):
 Use this method to search the directory of search queries that users have saved in Shodan.
 ```php
 var_dump($client->ShodanQuery(array(
@@ -185,7 +185,7 @@ var_dump($client->ShodanQuery(array(
 )));
 ```
 
-### Shodan Query Tags (```/tests/query_tags.php```): 
+### Shodan Query Tags (```/tests/query_tags.php```):
 Use this method to obtain a list of popular tags for the saved search queries in Shodan.
 ```php
 var_dump($client->ShodanQueryTags(array(
@@ -195,7 +195,7 @@ var_dump($client->ShodanQueryTags(array(
 
 ## Tests class - Esperimental method
 
-### Labs Honeyscore (```/tests/honeypot.php```): 
+### Labs Honeyscore (```/tests/honeypot.php```):
 Calculates a honeypot probability score ranging from 0 (not a honeypot) to 1.0 (is a honeypot).
 ```php
 var_dump($client->LabsHoneyscore(array(
@@ -205,7 +205,7 @@ var_dump($client->LabsHoneyscore(array(
 
 ## Tests class - Exploits REST API
 
-### Search Exploits (```/tests/exploits.php```): 
+### Search Exploits (```/tests/exploits.php```):
 Search across a variety of data sources for exploits and use facets to get summary information.
 ```php
 var_dump($client->Search(array(
@@ -213,7 +213,7 @@ var_dump($client->Search(array(
 )));
 ```
 
-### Count Exploits (```/tests/exploits.php```): 
+### Count Exploits (```/tests/exploits.php```):
 This method behaves identical to the "/search" method with the difference that it doesn't return any results.
 ```php
 var_dump($client->Count(array(
@@ -221,7 +221,7 @@ var_dump($client->Count(array(
 )));
 ```
 
-### Account Informations  
+### Account Informations
 This method allows you to get your Shodan's account information results.
 ```php
 var_dump($client->AccountProfile());

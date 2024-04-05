@@ -5,9 +5,9 @@
  */
 echo $colors->getColoredString('CRAWL A NETWORK:', 'black', 'green');
 try {
-	var_dump($client->ShodanScan(array(
+	var_dump($client->ShodanScan([
 		'ips' => '69.171.230.0/24',
-	)));
+    ]));
 } catch (Exception $e) {
 	echo $e->getMessage()."\n";
 }
@@ -17,10 +17,10 @@ try {
  */
 echo $colors->getColoredString('CRAWL INTERNET BY PORT AND PROTOCOL:', 'black', 'green');
 try {
-	var_dump($client->ShodanScanInternet(array(
+	var_dump($client->ShodanScanInternet([
 		'port' => '80',
 		'protocol' => 'dns-tcp',
-	)));
+    ]));
 } catch (Exception $e) {
 	echo $e->getMessage()."\n";
 }
@@ -30,9 +30,9 @@ try {
  */
 echo $colors->getColoredString('STATUS OF REQUESTED SCAN:', 'black', 'green');
 try {
-	var_dump($client->ShodanScan_Id(array(
+	var_dump($client->ShodanScan_Id([
 		'id' => '4I1LK2YHAY3PLWJ6',
-	)));
+    ]));
 } catch (Exception $e) {
 	echo $e->getMessage()."\n";
 }

@@ -5,9 +5,9 @@
  */
 echo $colors->getColoredString('SHODAN HOST SEARCH WITH FILTERS:', 'black', 'green');
 try {
-	var_dump($client->ShodanHostSearch(array(
+	var_dump($client->ShodanHostSearch([
 		'query' => 'Niagara Web Server',
-	)));
+    ]));
 } catch (Exception $e) {
 	echo $e->getMessage()."\n";
 }
@@ -17,9 +17,9 @@ try {
  */
 echo $colors->getColoredString('SHODAN HOST SEARCH WITH FILTERS:', 'black', 'green');
 try {
-	var_dump($client->ShodanHostSearch(array(
+	var_dump($client->ShodanHostSearch([
 		'query' => 'Niagara Web Server country:"IT"',
-	)));
+    ]));
 } catch (Exception $e) {
 	echo $e->getMessage()."\n";
 }
@@ -29,9 +29,9 @@ try {
  */
 echo $colors->getColoredString('SHODAN HOST SEARCH TOKENS:', 'black', 'green');
 try {
-	var_dump($client->ShodanHostSearchTokens(array(
+	var_dump($client->ShodanHostSearchTokens([
 		'query' => 'Niagara Web Server country:"IT"',
-	)));
+    ]));
 } catch (Exception $e) {
 	echo $e->getMessage()."\n";
 }

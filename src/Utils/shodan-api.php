@@ -1,23 +1,27 @@
 #!/usr/bin/php
 <?php
 
-require_once 'Colors.php';
-require_once 'Shodan.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
 
-$key = 'Insert your API key here';
+use ShodanPHP\Api\Shodan;
+use ShodanPHP\Utils\Colors;
+
+$key = '';
 $client = new Shodan($key, TRUE);
 $colors = new Colors();
 
 // CLI
 
 /**
- * Usage.
- * Auto-generate the usage for CLI.
- * 
- * @param string $client;
- * @return void;
+ *  Usage.
+ *  Auto-generate the usage for CLI.
+ *
+ * @param Shodan $client
+ * @return void
+ * @throws Exception
  */
-function usage($client) {
+function usage(Shodan $client): void
+{
 	echo 'Usage:'."\n";
 	
 	echo "\t".'-r, --run-tests'."\n";
@@ -39,24 +43,24 @@ function usage($client) {
 		
 		echo "\n";
 	}
-	
-	exit(1);
+
+    throw new \Exception('Invalid usage');
 }
 
-$methodOptions = array();
+$methodOptions = [];
 foreach ($client->getApis() as $method => $methodConf) {
 	foreach ($methodConf as $parameter => $parameterConf) {
-		if (!in_array($parameter, $methodOptions)) {
+		if (!in_array($parameter, $methodOptions, true)) {
 			$methodOptions[] = $parameter.':';
 		}
 	}
 }
 
-$options = getopt('rt:m:', array_merge(array(
+$options = getopt('rt:m:', array_merge([
 	'run-tests', // also known as "-r"
 	'run-test:', // also known as "-t"
 	'method:' // also known as "-m"
-), $methodOptions));
+], $methodOptions));
 
 // Run all the tests
 if (
@@ -77,8 +81,8 @@ if (
 	if (isset($options['t'])) $test = $options['t'];
 	
 	if (!$test) usage($client);
-	
-	if (!in_array('tests/'.$test.'.php', glob('tests/*.php'))) usage($client);
+
+    if (!in_array('tests/'.$test.'.php', glob('tests/*.php'))) usage($client);
 	
 	require_once 'tests/'.$test.'.php';
 	
@@ -96,7 +100,7 @@ if (
 	$methods = $client->getApis();
 	if (!array_key_exists($method, $methods)) usage($client);
 	
-	$parameters = array();
+	$parameters = [];
 	foreach ($methods[$method] as $parameter => $parameterConf) {
 		if (
 			$parameter == 'rest'
