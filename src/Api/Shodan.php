@@ -1,13 +1,18 @@
 <?php
 
+namespace ShodanPHP\Api;
+
+use Exception;
+
 /**
  * \class Shodan
  * \brief Shodan class
  * 
  * This is the API class: costants, shodan methods and the generation of the HTTP requests are defined here. 
  */
-class Shodan {
-	private $apiKey;
+class Shodan
+{
+	private string $apiKey;
 	
 	/**
 	 * Instantiating costants 
@@ -31,237 +36,237 @@ class Shodan {
 	 * Shodan methods.
 	 * @var array $_api;
 	 */
-	private $_api = array(
-		'ShodanHost' => array(
+	private array $_api = [
+		'ShodanHost' => [
 			'rest' => self::REST_API,
 			
-			'ip' => array(
+			'ip' => [
 				'type' => self::TYPE_STRING,
 				'optional' => self::PARAMETER_MANDATORY,
 				'position' => self::POSITION_GET,
-			),
-			'history' => array(
+			],
+			'history' => [
 				'type' => self::TYPE_BOOLEAN,
 				'optional' => self::PARAMETER_OPTIONAL,
 				'position' => self::POSITION_QUERY,
-			),
-			'minify' => array(
+			],
+			'minify' => [
 				'type' => self::TYPE_BOOLEAN,
 				'optional' => self::PARAMETER_OPTIONAL,
 				'position' => self::POSITION_QUERY,
-			),
-		),
+			],
+		],
 		
-		'ShodanHostCount' => array(
+		'ShodanHostCount' => [
 			'rest' => self::REST_API,
 			
-			'query' => array(
+			'query' => [
 				'type' => self::TYPE_STRING,
 				'optional' => self::PARAMETER_MANDATORY,
 				'position' => self::POSITION_QUERY,
-			),
-			'facets' => array(
+			],
+			'facets' => [
 				'type' => self::TYPE_STRING,
 				'optional' => self::PARAMETER_OPTIONAL,
 				'position' => self::POSITION_QUERY,
-			),
-		),
+			],
+		],
 		
-		'ShodanHostSearch' => array(
+		'ShodanHostSearch' => [
 			'rest' => self::REST_API,
 			
-			'query' => array(
+			'query' => [
 				'type' => self::TYPE_STRING,
 				'optional' => self::PARAMETER_MANDATORY,
 				'position' => self::POSITION_QUERY,
-			),
-			'facets' => array(
+			],
+			'facets' => [
 				'type' => self::TYPE_STRING,
 				'optional' => self::PARAMETER_OPTIONAL,
 				'position' => self::POSITION_QUERY,
-			),
-		),
+			]
+		],
 		
-		'ShodanHostSearchTokens' => array(
+		'ShodanHostSearchTokens' => [
 			'rest' => self::REST_API,
 			
-			'query' => array(
+			'query' => [
 				'type' => self::TYPE_STRING,
 				'optional' => self::PARAMETER_MANDATORY,
 				'position' => self::POSITION_QUERY,
-			),
-		),
+			]
+		],
 		
-		'ShodanPorts' => array(
+		'ShodanPorts' => [
 			'rest' => self::REST_API,
-		),
+		],
 		
-		'ShodanProtocols' => array(
+		'ShodanProtocols' => [
 			'rest' => self::REST_API,
-		),
+		],
 		
-		'ShodanScan' => array(
+		'ShodanScan' => [
 			'rest' => self::REST_API,
 			
-			'ips' => array(
+			'ips' => [
 				'type' => self::TYPE_STRING,
 				'optional' => self::PARAMETER_MANDATORY,
 				'position' => self::POSITION_POST,
-			),
-		),
+			]
+		],
 		
-		'ShodanScanInternet' => array(
+		'ShodanScanInternet' => [
 			'rest' => self::REST_API,
 			
-			'port' => array(
+			'port' => [
 				'type' => self::TYPE_INTEGER,
 				'optional' => self::PARAMETER_MANDATORY,
 				'position' => self::POSITION_POST,
-			),
-			'protocol' => array(
+			],
+			'protocol' => [
 				'type' => self::TYPE_STRING,
 				'optional' => self::PARAMETER_MANDATORY,
 				'position' => self::POSITION_POST,
-			),
-		),
+			],
+		],
 		
-		'ShodanScan_Id' => array(
+		'ShodanScan_Id' => [
 			'rest' => self::REST_API,
 			
-			'id' => array(
+			'id' => [
 				'type' => self::TYPE_STRING,
 				'optional' => self::PARAMETER_MANDATORY,
 				'position' => self::POSITION_GET,
-			),
-		),
+			]
+		],
 		
-		'ShodanServices' => array(
+		'ShodanServices' => [
 			'rest' => self::REST_API,
-		),
+		],
 		
-		'ShodanQuery' => array(
+		'ShodanQuery' => [
 			'rest' => self::REST_API,
 			
-			'page' => array(
+			'page' => [
 				'type' => self::TYPE_INTEGER,
 				'optional' => self::PARAMETER_OPTIONAL,
 				'position' => self::POSITION_QUERY,
-			),
-			'sort' => array(
+			],
+			'sort' => [
 				'type' => self::TYPE_STRING,
 				'optional' => self::PARAMETER_OPTIONAL,
 				'position' => self::POSITION_QUERY,
-			),
-			'order' => array(
+			],
+			'order' => [
 				'type' => self::TYPE_STRING,
 				'optional' => self::PARAMETER_OPTIONAL,
 				'position' => self::POSITION_QUERY,
-			),
-		),
+			],
+		],
 		
-		'ShodanQuerySearch' => array(
+		'ShodanQuerySearch' => [
 			'rest' => self::REST_API,
 			
-			'query' => array(
+			'query' => [
 				'type' => self::TYPE_STRING,
 				'optional' => self::PARAMETER_MANDATORY,
 				'position' => self::POSITION_QUERY,
-			),
-			'page' => array(
+			],
+			'page' => [
 				'type' => self::TYPE_INTEGER,
 				'optional' => self::PARAMETER_OPTIONAL,
 				'position' => self::POSITION_QUERY,
-			),
-		),
+			],
+		],
 		
-		'ShodanQueryTags' => array(
+		'ShodanQueryTags' => [
 			'rest' => self::REST_API,
 			
-			'size' => array(
+			'size' => [
 				'type' => self::TYPE_INTEGER,
 				'optional' => self::PARAMETER_OPTIONAL,
 				'position' => self::POSITION_QUERY,
-			),
-		),
+			]
+		],
 		
-		'LabsHoneyscore' => array(
+		'LabsHoneyscore' => [
 			'rest' => self::REST_API,
 			
-			'ip' => array(
+			'ip' => [
 				'type' => self::TYPE_STRING,
 				'optional' => self::PARAMETER_MANDATORY,
 				'position' => self::POSITION_GET,
-			),
-		),
+			],
+		],
 		
-		'Search' => array(
+		'Search' => [
 			'rest' => self::REST_EXPLOIT,
 			
-			'query' => array(
+			'query' => [
 				'type' => self::TYPE_STRING,
 				'optional' => self::PARAMETER_MANDATORY,
 				'position' => self::POSITION_QUERY,
-			),
-			'facets' => array(
+			],
+			'facets' => [
 				'type' => self::TYPE_STRING,
 				'optional' => self::PARAMETER_OPTIONAL,
 				'position' => self::POSITION_QUERY,
-			),
-			'page' => array(
+			],
+			'page' => [
 				'type' => self::TYPE_INTEGER,
 				'optional' => self::PARAMETER_OPTIONAL,
 				'position' => self::POSITION_QUERY,
-			),
-		),
+			]
+		],
 		
-		'Count' => array(
+		'Count' => [
 			'rest' => self::REST_EXPLOIT,
 			
-			'query' => array(
+			'query' => [
 				'type' => self::TYPE_STRING,
 				'optional' => self::PARAMETER_MANDATORY,
 				'position' => self::POSITION_QUERY,
-			),
-			'facets' => array(
+			],
+			'facets' => [
 				'type' => self::TYPE_STRING,
 				'optional' => self::PARAMETER_OPTIONAL,
 				'position' => self::POSITION_QUERY,
-			),
-		),
+			],
+		],
 		
-		'ShodanBanners' => array(
+		'ShodanBanners' => [
 			'rest' => self::STREAM_API,
-		),
+		],
 		
-		'ShodanAsn' => array(
+		'ShodanAsn' => [
 			'rest' => self::STREAM_API,
 			
-			'asn' => array(
+			'asn' => [
 				'type' => self::TYPE_STRING,
 				'optional' => self::PARAMETER_MANDATORY,
 				'position' => self::POSITION_GET,
-			),
-		),
+			]
+		],
 		
-		'ShodanCountries' => array(
+		'ShodanCountries' => [
 			'rest' => self::STREAM_API,
 			
-			'countries' => array(
+			'countries' => [
 				'type' => self::TYPE_STRING,
 				'optional' => self::PARAMETER_MANDATORY,
 				'position' => self::POSITION_GET,
-			),
-		),
+			]
+		],
 		
-		'ShodanPorts_Stream' => array(
+		'ShodanPorts_Stream' => [
 			'rest' => self::STREAM_API,
 			
-			'ports' => array(
+			'ports' => [
 				'type' => self::TYPE_STRING,
 				'optional' => self::PARAMETER_MANDATORY,
 				'position' => self::POSITION_GET,
-			),
-		),
+			]
+		],
 
         'AccountProfile' => [
             'rest' => self::REST_API,
@@ -269,21 +274,20 @@ class Shodan {
 
         'DnsReverse' => [
             'rest' => self::REST_API,
-            'ips' => array(
+            'ips' => [
                 'type' => self::TYPE_STRING,
                 'optional' => self::PARAMETER_MANDATORY,
-            )
-
+            ],
         ],
 
         'DnsResolve' => [
             'rest' => self::REST_API,
-            'hostnames' => array(
+            'hostnames' => [
                 'type' => self::TYPE_STRING,
                 'optional' => self::PARAMETER_MANDATORY,
-            )
+            ],
         ],
-	);
+	];
 	
 	/**
 	 * Construct.
@@ -293,7 +297,7 @@ class Shodan {
 	 * @param bool $returnType;
 	 * @return void;
 	 */
-	public function __construct($apiKey, $returnType = FALSE) {
+    public function __construct(string $apiKey, bool $returnType = false) {
 		$this->apiUrl = 'https://api.shodan.io';
 		$this->exploitUrl = 'https://exploits.shodan.io/api';
 		$this->streamUrl = 'https://stream.shodan.io';
@@ -302,16 +306,17 @@ class Shodan {
 		// false = object; true = array
 		define('RETURN_TYPE', $returnType);
 	}
-	
-	/**
-	 * Parse Headers.
-	 * \fn _parseHeaders($headers)
-	 * 
-	 * @param string $headers;
-	 * @return string $head;
-	 */
-	private function _parseHeaders($headers) {
-		$head = array();
+
+    /**
+     *  Parse Headers.
+     *  \fn _parseHeaders($headers)
+     *
+     * @param array $headers
+     * @return array
+     */
+    private function _parseHeaders(array $headers): array
+    {
+		$head = [];
 		
 		foreach ($headers as $k => $v) {
 			$t = explode(':', $v, 2);
@@ -328,25 +333,23 @@ class Shodan {
 		
 		return $head;
 	}
-	
-	/**
-	 * Request Context.
-	 * \fn _requestContext($post = FALSE, $options = FALSE)
-	 * 
-	 * @param bool $post;
-	 * @param bool $options;
-	 * @return object $options;
-	 */
-	private function _requestContext($post = FALSE, $options = FALSE) {
+
+    /**
+     * @param array|null $post
+     * @param array|null $options
+     * @return mixed
+     */
+    private function _requestContext(?array $post = null, ?array $options = null): mixed
+    {
 		if (!$options) {
-			$options = array(
-				'http' => array(
+			$options = [
+				'http' => [
 					'method' => 'GET',
 					'header' => 'Accept-language: en'."\n",
 					'timeout' => 10,
 					'ignore_errors' => TRUE,
-				)
-			);
+				]
+			];
 		}
 		
 		if ($post) {
@@ -357,15 +360,15 @@ class Shodan {
 		
 		return stream_context_create($options);
 	}
-	
-	/**
-	 * Response Success HTTP.
-	 * \fn _responseSuccessHTTP($headers)
-	 * 
-	 * @param string $headers;
-	 * @return TRUE;
-	 */
-	private function _responseSuccessHTTP($headers) {
+
+    /**
+     * Response Success HTTP.
+     * \fn _responseSuccessHTTP($headers)
+     *
+     * @param array $headers
+     * @return bool
+     */
+    private function _responseSuccessHTTP(array $headers): bool {
 		$responseHeaders = $this->_parseHeaders($headers);
 		
 		if ($responseHeaders['reponse_code'] != 200) {
@@ -374,31 +377,32 @@ class Shodan {
 		
 		return TRUE;
 	}
-	
-	/**
-	 * Response Success API.
-	 * \fn _responseSuccessAPI($responseDecoded)
-	 * 
-	 * @param string $responseDecoded;
-	 * @return TRUE;
-	 */
-	private function _responseSuccessAPI($responseDecoded) {
+
+    /**
+     *  Response Success API.
+     *  \fn _responseSuccessAPI($responseDecoded)
+     *
+     * @param array $responseDecoded
+     * @return bool
+     */
+    private function _responseSuccessAPI(array $responseDecoded): bool {
 		if (isset($responseDecoded['error'])) {
 			return $responseDecoded['error'];
 		}
 		
 		return TRUE;
 	}
-	
-	/**
-	 * Response Success.
-	 * \fn _responseSuccess($headers, $response)
-	 * 
-	 * @param string $headers;
-	 * @param string $response;
-	 * @return string $responseDecoded;
-	 */
-	private function _responseSuccess($headers, $response) {
+
+    /**
+     *  Response Success.
+     *  \fn _responseSuccess($headers, $response)
+     *
+     * @param array $headers
+     * @param string $response
+     * @return array
+     * @throws Exception
+     */
+    private function _responseSuccess(array $headers, string $response): array {
 		// Check for HTTP errors
 		if (($errorHTTP = $this->_responseSuccessHTTP($headers)) !== TRUE) {
 			// Decode
@@ -406,17 +410,16 @@ class Shodan {
 			
 			// Check for API errors
 			if (($errorAPI = $this->_responseSuccessAPI($responseDecoded)) !== TRUE) {
-				throw new Exception('API Error: '.$errorAPI);
+                throw new \Exception('API Error: ' . $errorAPI);
 			}
 			
 			// If we were unable to identify the error in the response body, then
 			// just raise the HTTP error
-			throw new Exception('HTTP Error: '.$errorHTTP);
+            throw new \Exception('HTTP Error: ' . $errorHTTP);
 		}
 		
 		// Decode
-		$responseDecoded = $this->_responseDecode($response);
-		return $responseDecoded;
+		return $this->_responseDecode($response);
 	}
 	
 	/**
@@ -426,20 +429,18 @@ class Shodan {
 	 * @param string $response;
 	 * @return array $response;
 	 */
-	private function _responseDecode($response) {
+    private function _responseDecode(string $response): array {
 		return json_decode($response, RETURN_TYPE);
 	}
-	
-	/**
-	 * Request.
-	 * \fn _request($url, $post = FALSE, $options = FALSE)
-	 * 
-	 * @param string $url;
-	 * @param bool $post;
-	 * @param bool $options;
-	 * @return array $http_response_header, $response;
-	 */
-	private function _request($url, $post = FALSE, $options = FALSE) {
+
+    /**
+     * @param string $url
+     * @param array|null $post
+     * @param array|null $options
+     * @return array
+     * @throws Exception
+     */
+    private function _request(string $url, ?array $post = null, ?array $options = null): array {
 		$response = @file_get_contents(
 			$url,
 			FALSE,
@@ -448,17 +449,19 @@ class Shodan {
 		
 		return $this->_responseSuccess($http_response_header, $response);
 	}
-	
-	/**
-	 * Request Stream.
-	 * \fn _requestStream($url, $post = FALSE, $options = FALSE)
-	 * 
-	 * @param string $url;
-	 * @param bool $post;
-	 * @param bool $options;
-	 * @return void;
-	 */
-	private function _requestStream($url, $post = FALSE, $options = FALSE) {
+
+    /**
+     *  Request Stream.
+     *  \fn _requestStream($url, $post = FALSE, $options = FALSE)
+     *
+     * @param string $url
+     * @param array|null $post
+     * @param array|null $options
+     * @return mixed
+     * @throws Exception
+     */
+    private function _requestStream(string $url, ?array $post = null, ?array $options = null): mixed
+    {
 		$handle = fopen(
 			$url, 
 			'r', 
@@ -474,18 +477,20 @@ class Shodan {
 		fpassthru($handle);
 		fclose($handle);
 	}
-	
-	/**
-	 * Call function.
-	 * \fn __call($method, $args)
-	 * 
-	 * @param string $method;
-	 * @param string $args;
-	 * @return array $url.$query, $post;
-	 */
-	public function __call($method, $args) {
+
+    /**
+     *  Call function.
+     *  \fn __call($method, $args)
+     *
+     * @param string $method
+     * @param array $args
+     * @return array
+     * @throws Exception
+     */
+    public function __call(string $method, array $args): array
+    {
 		if (!isset($this->_api[$method])) {
-			throw new Exception('Unknown method: '.$method);
+            throw new \Exception('Unknown method: ' . $method);
 		}
 		
 		// Handle overlapping methods (see: https://github.com/ScadaExposure/Shodan-PHP-REST-API#handle-overlapping-methods)
@@ -534,7 +539,7 @@ class Shodan {
 					$config['optional'] == self::PARAMETER_MANDATORY &&
 					!isset($args[$parameter])
 				) {
-					throw new Exception('Parameter is mandatory: '.$parameter);
+                    throw new \Exception('Parameter is mandatory: ' . $parameter);
 				}
 				
 				if (isset($args[$parameter])) {
@@ -556,14 +561,15 @@ class Shodan {
 		
 		return $this->_request($url.$query, $post);
 	}
-	
-	/**
-	 * Get Apis.
-	 * \fn getApis()
-	 * 
-	 * @return $_api;
-	 */
-	public function getApis() {
+
+    /**
+     *  Get Apis.
+     *  \fn getApis()
+     *
+     * @return array
+     */
+    public function getApis(): array
+    {
 		return $this->_api;
 	}
 }

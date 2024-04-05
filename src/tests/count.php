@@ -5,9 +5,9 @@
  */
 echo $colors->getColoredString('SHODAN HOST COUNT:', 'black', 'green');
 try {
-	var_dump($client->ShodanHostCount(array(
+	var_dump($client->ShodanHostCount([
 		'query' => 'Niagara Web Server',
-	)));
+	]));
 } catch (Exception $e) {
 	echo $e->getMessage()."\n";
 }
@@ -17,9 +17,9 @@ try {
  */
 echo $colors->getColoredString('SHODAN HOST COUNT WITH COUNTRY IT:', 'black', 'green');
 try {
-	var_dump($client->ShodanHostCount(array(
+	var_dump($client->ShodanHostCount([
 		'query' => 'Niagara Web Server country:"IT"',
-	)));
+	]));
 } catch (Exception $e) {
 	echo $e->getMessage()."\n";
 }
@@ -29,10 +29,9 @@ try {
  */
 echo $colors->getColoredString('SHODAN HOST COUNT WITH COUNTRY US:', 'black', 'green');
 try {
-	var_dump($client->ShodanHostCount(array(
+	var_dump($client->ShodanHostCount([
 		'query' => 'Niagara Web Server country:"US"',
-	)));
-} catch (Exception $e) {
+    ]));} catch (Exception $e) {
 	echo $e->getMessage()."\n";
 }
 
@@ -41,10 +40,10 @@ try {
  */
 echo $colors->getColoredString('SHODAN HOST COUNT OF TOP 10 COUNTRIES:', 'black', 'green');
 try {
-	var_dump($client->ShodanHostCount(array(
+	var_dump($client->ShodanHostCount([
 		'query' => 'Niagara Web Server',
 		'facets' => 'country:10',
-	)));
+    ]));
 } catch (Exception $e) {
 	echo $e->getMessage()."\n";
 }

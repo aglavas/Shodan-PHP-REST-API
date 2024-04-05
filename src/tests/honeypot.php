@@ -6,9 +6,9 @@
  */
 echo $colors->getColoredString('HONEYPOT PROBABILITY SCORE:', 'black', 'green');
 try {
-	var_dump($client->LabsHoneyscore(array(
+	var_dump($client->LabsHoneyscore([
 		'ip' => '54.231.184.227', // http://mushmush.org/
-	)));
+    ]));
 } catch (Exception $e) {
 	echo $e->getMessage()."\n";
 }
