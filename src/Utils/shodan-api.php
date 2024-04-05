@@ -6,8 +6,7 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 use ShodanPHP\Api\Shodan;
 use ShodanPHP\Utils\Colors;
 
-$key = '';
-$client = new Shodan($key, TRUE);
+$client = new Shodan();
 $colors = new Colors();
 
 // CLI
