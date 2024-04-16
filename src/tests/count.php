@@ -3,7 +3,6 @@
 /*
  * Shodan Host Count
  */
-echo $colors->getColoredString('SHODAN HOST COUNT:', 'black', 'green');
 try {
 	var_dump($client->ShodanHostCount([
 		'query' => 'Niagara Web Server',
@@ -15,7 +14,6 @@ try {
 /*
  * Shodan Host Count with country IT
  */
-echo $colors->getColoredString('SHODAN HOST COUNT WITH COUNTRY IT:', 'black', 'green');
 try {
 	var_dump($client->ShodanHostCount([
 		'query' => 'Niagara Web Server country:"IT"',
@@ -27,7 +25,6 @@ try {
 /*
  * Shodan Host Count with country US
  */
-echo $colors->getColoredString('SHODAN HOST COUNT WITH COUNTRY US:', 'black', 'green');
 try {
 	var_dump($client->ShodanHostCount([
 		'query' => 'Niagara Web Server country:"US"',
@@ -38,7 +35,6 @@ try {
 /*
  * Shodan host count of top 10 countries
  */
-echo $colors->getColoredString('SHODAN HOST COUNT OF TOP 10 COUNTRIES:', 'black', 'green');
 try {
 	var_dump($client->ShodanHostCount([
 		'query' => 'Niagara Web Server',

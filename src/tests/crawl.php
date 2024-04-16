@@ -3,7 +3,6 @@
 /*
  * Crawl a network request - REQUIRE PAID API KEY
  */
-echo $colors->getColoredString('CRAWL A NETWORK:', 'black', 'green');
 try {
 	var_dump($client->ShodanScan([
 		'ips' => '69.171.230.0/24',
@@ -15,7 +14,6 @@ try {
 /*
  * Crawl internet by port and protocol request - REQUIRE PAID API KEY AND SHODAN PERMISSION
  */
-echo $colors->getColoredString('CRAWL INTERNET BY PORT AND PROTOCOL:', 'black', 'green');
 try {
 	var_dump($client->ShodanScanInternet([
 		'port' => '80',
@@ -28,7 +26,6 @@ try {
 /*
  * Status of requested scan
  */
-echo $colors->getColoredString('STATUS OF REQUESTED SCAN:', 'black', 'green');
 try {
 	var_dump($client->ShodanScan_Id([
 		'id' => '4I1LK2YHAY3PLWJ6',
@@ -40,7 +37,6 @@ try {
 /*
  * Services crawled
  */
-echo $colors->getColoredString('SERVICES CRAWLED:', 'black', 'green');
 try {
 	var_dump($client->ShodanServices());
 } catch (Exception $e) {

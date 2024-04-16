@@ -3,7 +3,6 @@
 /*
  * Shodan Host
  */
-echo $colors->getColoredString('IP SEARCH:', 'black', 'green');
 try {
 	var_dump($client->ShodanHost([
 		'ip' => '69.171.230.68', // https://www.facebook.com/
@@ -12,7 +11,6 @@ try {
 	echo $e->getMessage()."\n";
 }
 
-echo $colors->getColoredString('IP SEARCH WITH HISTORY:', 'black', 'green');
 try {
 	var_dump($client->ShodanHost([
 		'ip' => '69.171.230.68',
@@ -22,7 +20,6 @@ try {
 	echo $e->getMessage()."\n";
 }
 
-echo $colors->getColoredString('IP SEARCH WITH MINIFY:', 'black', 'green');
 try {
 	var_dump($client->ShodanHost([
 		'ip' => '69.171.230.68',
@@ -32,7 +29,6 @@ try {
 	echo $e->getMessage()."\n";
 }
 
-echo $colors->getColoredString('IP SEARCH WITH HISTORY AND !MINIFY:', 'black', 'green');
 try {
 	var_dump($client->ShodanHost([
 		'ip' => '69.171.230.68',
@@ -43,7 +39,6 @@ try {
 	echo $e->getMessage()."\n";
 }
 
-echo $colors->getColoredString('IP SEARCH WITH !HISTORY AND MINIFY:', 'black', 'green');
 try {
 	var_dump($client->ShodanHost([
 		'ip' => '69.171.230.68',
