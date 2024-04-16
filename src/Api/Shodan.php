@@ -302,6 +302,7 @@ class Shodan
             'ips' => [
                 'type' => self::TYPE_STRING,
                 'optional' => self::PARAMETER_MANDATORY,
+                'position' => self::POSITION_QUERY,
             ],
         ],
 
@@ -310,32 +311,30 @@ class Shodan
             'hostnames' => [
                 'type' => self::TYPE_STRING,
                 'optional' => self::PARAMETER_MANDATORY,
+                'position' => self::POSITION_QUERY,
             ],
         ],
     ];
 
     /**
-     *  Construct.
-     *  \fn __construct()
+     * Construct.
+     *
+     * @param string $apiKey
      */
-    public function __construct() {
+    public function __construct(string $apiKey = '') {
         $this->apiUrl = 'https://api.shodan.io';
         $this->exploitUrl = 'https://exploits.shodan.io/api';
         $this->streamUrl = 'https://stream.shodan.io';
-        $this->apiKey = '';
-
-        // false = object; true = array
-        define('RETURN_TYPE', TRUE);
+        $this->apiKey = $apiKey;
     }
 
     /**
-     * @param string $apiKey
-     * @return $this
+     * @param string $key
+     * @return void
      */
-    public function setKey(string $apiKey): Shodan
+    public function setKey(string $key): void
     {
-        $this->apiKey = $apiKey;
-        return $this;
+        $this->apiKey = $key;
     }
 
     /**
@@ -460,8 +459,9 @@ class Shodan
      * @param string $response;
      * @return array $response;
      */
-    private function _responseDecode(string $response): array {
-        return json_decode($response, RETURN_TYPE);
+    private function _responseDecode(string $response): array
+    {
+        return json_decode($response, true);
     }
 
     /**
@@ -471,7 +471,8 @@ class Shodan
      * @return array
      * @throws Exception
      */
-    private function _request(string $url, ?array $post = null, ?array $options = null): array {
+    private function _request(string $url, ?array $post = null, ?array $options = null): array
+    {
         $response = @file_get_contents(
             $url,
             FALSE,
@@ -488,10 +489,10 @@ class Shodan
      * @param string $url
      * @param array|null $post
      * @param array|null $options
-     * @return mixed
+     * @return void
      * @throws Exception
      */
-    private function _requestStream(string $url, ?array $post = null, ?array $options = null): mixed
+    private function _requestStream(string $url, ?array $post = null, ?array $options = null): void
     {
         $handle = fopen(
             $url,

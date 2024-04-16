@@ -3,7 +3,6 @@
 /*
  * Other users saved query
  */
-echo $colors->getColoredString('SAVED SEARCH QUERY:', 'black', 'green');
 try {
 	var_dump($client->ShodanQuery([
 		'page' => '1',
@@ -15,7 +14,6 @@ try {
 /*
  * Search for other users saved query
  */
-echo $colors->getColoredString('SEARCH FOR OTHER USERS SAVED QUERY:', 'black', 'green');
 try {
 	var_dump($client->ShodanQuery([
 		'query' => 'fax',
