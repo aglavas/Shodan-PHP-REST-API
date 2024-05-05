@@ -356,7 +356,7 @@ class Shodan
             } else {
                 $head[] = $v;
                 if (preg_match('|HTTP/[0-9\.]+\s+([0-9]+)|', $v, $out)) {
-                    $head['reponse_code'] = intval($out[1]);
+                    $head['response_code'] = intval($out[1]);
                 }
             }
         }
@@ -401,8 +401,12 @@ class Shodan
     private function _responseSuccessHTTP(array $headers): bool {
         $responseHeaders = $this->_parseHeaders($headers);
 
-        if ($responseHeaders['reponse_code'] != 200) {
-            return $responseHeaders[0];
+        try {
+            if ($responseHeaders['response_code'] != 200) {
+                return $responseHeaders[0];
+            }
+        } catch (\Exception $exception) {
+            return 200;
         }
 
         return TRUE;
@@ -429,10 +433,11 @@ class Shodan
      *
      * @param array $headers
      * @param string $response
-     * @return array
+     * @return ?array
      * @throws Exception
      */
-    private function _responseSuccess(array $headers, string $response): array {
+    private function _responseSuccess(array $headers, string $response): ?array
+    {
         // Check for HTTP errors
         if (($errorHTTP = $this->_responseSuccessHTTP($headers)) !== TRUE) {
             // Decode
@@ -457,9 +462,9 @@ class Shodan
      * \fn _responseDecode($response)
      *
      * @param string $response;
-     * @return array $response;
+     * @return ?array $response;
      */
-    private function _responseDecode(string $response): array
+    private function _responseDecode(string $response): ?array
     {
         return json_decode($response, true);
     }
@@ -468,10 +473,10 @@ class Shodan
      * @param string $url
      * @param array|null $post
      * @param array|null $options
-     * @return array
+     * @return ?array
      * @throws Exception
      */
-    private function _request(string $url, ?array $post = null, ?array $options = null): array
+    private function _request(string $url, ?array $post = null, ?array $options = null): ?array
     {
         $response = @file_get_contents(
             $url,
@@ -516,10 +521,10 @@ class Shodan
      *
      * @param string $method
      * @param array $args
-     * @return array
+     * @return ?array
      * @throws Exception
      */
-    public function __call(string $method, array $args): array
+    public function __call(string $method, array $args): ?array
     {
         if (!isset($this->_api[$method])) {
             throw new \Exception('Unknown method: ' . $method);
@@ -591,7 +596,18 @@ class Shodan
             return $this->_requestStream($url.$query, $post);
         }
 
-        return $this->_request($url.$query, $post);
+        $tries = 0;
+        $response = null;
+
+        do {
+            $response = $this->_request($url.$query, $post);
+            $tries++;
+            sleep(1);
+        } while (!is_array($response) && ($tries <= 3));
+
+        $response = (is_array($response)) ? $response : [];
+
+        return $response;
     }
 
     /**
